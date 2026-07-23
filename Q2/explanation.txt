@@ -1,0 +1,17 @@
+Execution and Explanations
+
+Command 1: gcc monitor.c -o monitor
+Explanation: I compiled the C source code into an executable named monitor using the standard GCC compiler. It compiled successfully without any syntax errors.
+
+Command 2: ./monitor
+Explanation: I ran the program, and observed the parent process spawn the child, wait for three seconds, and then successfully send a termination signal to kill the infinite loop.
+ss1.png
+
+Command 3: ps aux | grep Z
+Explanation: I ran a process check looking for zombie states (Z) after execution. The output confirmed there were no zombie processes left behind by my script.
+ss2.png
+
+Explanation of Concepts
+Process Creation (fork): I used fork() to clone the parent process, allowing the child to handle tasks independently just like a web server worker process.
+Termination (kill): When the child became unresponsive, the parent used the kill() system call to send a SIGKILL signal, forcing the child to shut down immediately.
+Waiting (waitpid): By calling waitpid(), the parent process paused to collect the child's exit status. This step is mandatory because it removes the terminated child from the system process table, successfully preventing a zombie process.

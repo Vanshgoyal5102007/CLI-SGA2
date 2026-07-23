@@ -1,0 +1,15 @@
+Execution and Explanations
+
+Command 1: gcc records.c -o records && ./records
+Explanation: I compiled and executed the program. It successfully created the binary file, updated the second employee record, and printed out "Robert" to prove the data was changed in place.
+ss1.png
+
+Command 2: hexdump -C employees.dat
+Explanation: I used hexdump to inspect the raw binary file. The output shows the actual byte structures of the employee records, confirming the data was written directly using system calls.
+ss2.png
+
+Explanation of System Calls
+open(): This call accesses the file at the operating system level, using flags to create it if it doesn't exist and open it for both reading and writing.
+write() and read(): These system calls handle raw, unbuffered data transfer directly between the program's memory structures and the file descriptor.
+lseek(): This allows efficient updates by moving the file offset pointer directly to a specific byte location (calculated via sizeof) so a single record can be overwritten without rewriting the entire file.
+close(): This safely terminates the connection to the file and releases the descriptor back to the Linux kernel.

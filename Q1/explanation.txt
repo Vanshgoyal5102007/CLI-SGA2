@@ -1,0 +1,22 @@
+Execution and Explanations
+
+Command 1: mkdir submissions && echo "test1" > submissions/file1.txt && echo "test2" > submissions/file2.txt && echo "test1" > submissions/file3.txt
+Explanation: I manually created the submissions folder and added three text files to it, making sure that two of them had the exact same content to test the duplicate checker.
+ss1.png
+
+Command 2: chmod +x script.sh && ./script.sh
+Explanation: I made the script executable and ran it. It successfully scanned the folder, ignored the duplicate file, backed up the two unique files, and printed the summary report.
+ss2.png
+
+Command 3: cat report.txt
+Explanation: I opened the generated report file. It verified that 3 files were processed, 1 duplicate was found, and 2 files were safely backed up.
+ss3.png
+
+Command 4: cat error.log
+Explanation: I checked the error log file. It was empty, meaning no permission denied or missing file errors occurred during the file processing.
+ss4.png
+
+Justification
+md5sum: I used this to calculate a unique hash for each file's contents, which is the most accurate way to detect duplicates regardless of what the files are named.
+Redirection (2>>): This command takes any standard error messages and appends them to a separate log file, keeping the main terminal output clean.
+Associative Arrays: I used a hash map (declare -A) to store the file hashes because it provides instant lookups to check if a file has already been processed.

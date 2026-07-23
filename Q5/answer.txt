@@ -1,0 +1,18 @@
+Backup Files: By having this option turned on, vi will back up the old version of the file overwritten by the new one, allowing the user to revert their changes.
+
+Registers: Most of the functions that aren't listed here use registers for either copying or deleting something. However, the contents of these registers are only held temporarily, making this a bad place to keep your changes.
+
+Swap Files (.swp): These files are created by vi when the program is launched and constantly updated while working on a file. This lets the user restore their changes saved in the swap space by reopening the file.
+
+Auto-Recovery: This option lets the user recover a file lost due to a crash or other problem by asking them to recover the changes to the file upon launch.
+
+Undo History: The undo function stores the previous state of the file, letting the user revert their changes. Like most of the other tools mentioned, this can only be used while the file is opened in vi.
+
+Recommended Solution: Recommended solution is to utilize the undo history in combination with the swap file.
+
+In the case of freezing, the user would be able to access their changes with the command:
+vi -r config_file.conf
+
+After making sure that all changes are up to date, the user should type :w after the vi -r command to write their changes. Then, it is necessary to delete the .swp file so that the vi -r command does not appear every time the file is opened.
+
+Justification: The swap file seems to be the most reliable source of unsaved changes in the case of emergency. First, it is specifically designed to hold the changes that the user makes before they save the file. Second, other options either do not work in the case of a crash or are not meant for storing unsaved changes. As a result, the probability of successfully recovering unsaved changes is significantly higher when the user employs the vi -r command.

@@ -1,0 +1,18 @@
+Execution and Explanations
+
+Command 1 (Terminal 1): touch server.log && chmod +x monitor.sh && ./monitor.sh
+Explanation: I created an empty log file to monitor, made the script executable, and ran it. It stayed open and actively listened for any incoming changes to the file.
+
+Command 2 (Terminal 2): echo "ERROR: System failure" >> server.log
+Explanation: In a second terminal window, I appended a fake error message into the log file. The script in the first terminal instantly caught it and printed it to the screen.
+Both Command 1 and 2 in ss1.png
+
+Command 3: cat error_report.txt
+Explanation: I checked the contents of the generated report file. It successfully captured and saved the error line that was appended in the previous step.
+ss2.png
+
+Pipeline Design Justification
+tail -f: This command keeps the file descriptor open and reads new data in real-time as the file grows.
+2>/dev/null: This redirection suppresses unnecessary standard error messages by sending them to the null device, ensuring our pipeline only processes actual log data.
+grep --line-buffered: This extracts only the lines matching our error criteria. The line-buffered flag forces it to pass the matched data down the pipeline immediately instead of holding it in memory.
+tee -a: This command duplicates the data stream, displaying the error on the standard output for the administrator while simultaneously appending it to the report file.
